@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# 👟 Find That Shoe!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A tap-based browser game built with React — a remake of a C terminal game [originally written for CCPROG1 (December 2018)](https://github.com/okaystephen/find-that-shoe.git).
 
-## Available Scripts
+You're somewhere in a two-storey house and one of your shoes is missing. Navigate room by room, pet your dog, pick up toys, and find that shoe before you run out of patience.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Gameplay
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Search** each room for the shoe. You get up to 5 tries per room (+2s per attempt).
+- **Pet your dog** (Bailey or Kahlua) when they show up for a ♡, which deducts 2s from your final time.
+- **Pick up dog toys** scattered around the house and drop them in a bin for another ♡ each.
+- **Hands full?** If you're carrying 2 toys and walk into a room with another one on the floor, you'll step on it (+3s penalty).
+- The game ends when you find the shoe **with empty hands** — drop any toys in a bin first.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Time scoring
 
-### `npm test`
+| Event | Effect |
+|---|---|
+| Each search attempt | +2s |
+| Stepping on a toy | +3s |
+| Each heart collected | −2s |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Final time** = real elapsed time + penalties − (hearts × 2)
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## House layout
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Ground floor
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| Room | Adjacent to |
+|---|---|
+| Garage | Foyer |
+| Covered Entry | Foyer, Garden |
+| Foyer _(stairs)_ | Garage, Covered Entry, Living Room, Hallway |
+| Powder Room | Living Room |
+| Living Room | Covered Terrace, Dining Room, Kitchen, Powder Room, Foyer |
+| Dining Room | Covered Terrace, Kitchen, Living Room |
+| Kitchen | Dining Room, Living Room |
+| Covered Terrace 🟢 | Garden, Dining Room, Living Room |
+| Garden | Covered Entry, Covered Terrace |
 
-### `npm run eject`
+### Second floor
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+| Room | Adjacent to |
+|---|---|
+| Hallway _(stairs)_ | Master Bedroom, Your Bedroom, Guest Suite, Bathroom #2, Laundry Room, Linen Closet, Foyer |
+| Master Bedroom | Hallway, WIC (Master) |
+| WIC (Master) | Master Bedroom, Bath (Master) |
+| Bath (Master) | WIC (Master) |
+| Your Bedroom 🟢 | Hallway, Your WIC |
+| Your WIC | Your Bedroom |
+| Guest Suite | Hallway |
+| Bathroom #2 | Hallway |
+| Laundry Room | Hallway |
+| Linen Closet | Hallway |
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+🟢 = toy bin location (also in Garage)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Try it out
 
-## Learn More
+```bash
+https://okaystephen.github.io/shoe
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Tech
 
-### Code Splitting
+- React 18 (hooks only — `useState`, `useEffect`, `useRef`, `useCallback`)
+- Tailwind CSS (utility classes, no custom config needed)
+- No external game libraries or state managers
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## Origin
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Originally written in C as a machine project for **CCPROG1 (X22)** at De La Salle University, December 3, 2018. The original used `scanf`/`printf` for all I/O, `goto` for flow control, and `time.h` for the game clock. This version preserves the exact room graph, adjacency rules, toy bin locations, scoring logic, and dog name assignments from the original source.
