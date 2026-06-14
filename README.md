@@ -32,7 +32,7 @@ You're somewhere in a two-storey house and one of your shoes is missing. Navigat
 
 | Room | Adjacent to |
 |---|---|
-| Garage | Foyer |
+| Garage 🟢 | Foyer |
 | Covered Entry | Foyer, Garden |
 | Foyer _(stairs)_ | Garage, Covered Entry, Living Room, Hallway |
 | Powder Room | Living Room |
